@@ -1,4 +1,4 @@
-import { RestaurantInterface } from "../types/restaurants.models";
+import { RestaurantInterface } from "../types/restaurant.models";
 
 export const restaurants: RestaurantInterface[] = [
   {

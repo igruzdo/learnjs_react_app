@@ -1,20 +1,5 @@
-export interface RestaurantInterface {
-  id: string,
-  name: string,
-  menu: MenuInterface[],
-  reviews: ReviewsInterface[],
-}
+import { RestaurantInterface } from "./restaurant.models";
 
-interface MenuInterface {
-  id: string,
-  name: string,
-  price: number,
-  ingredients: string[],
-}
-
-interface ReviewsInterface {
-  id: string,
-  user: string,
-  text: string,
-  rating: number,
+export interface RestaurantsProps {
+  restaurants: RestaurantInterface[];
 }
