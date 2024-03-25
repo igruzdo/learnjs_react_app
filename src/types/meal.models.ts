@@ -4,8 +4,3 @@ export interface MealInterface {
   price: number,
   ingredients: string[],
 }
-
-
-export interface MealProps {
-  meal: MealInterface;
-}

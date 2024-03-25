@@ -9,6 +9,3 @@ export interface RestaurantInterface {
 }
 
 
-export interface RestaurantProps {
-  restaurant: RestaurantInterface;
-}

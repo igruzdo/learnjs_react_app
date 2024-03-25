@@ -1,7 +1,11 @@
 import { FC } from 'react';
-import { ReviewsProps } from '../../types/reviews.models';
 import { Review } from '../review/review.component';
-import { Empty } from '../empty/empty.component';
+import { EmptyList } from '../empty-list/empty-list.component';
+import { ReviewInterface } from '../../types/review.models';
+
+export interface ReviewsProps {
+  reviews: ReviewInterface[];
+}
 
 export const Reviews: FC<ReviewsProps> = ({ reviews }) => (
   <div>
@@ -13,7 +17,7 @@ export const Reviews: FC<ReviewsProps> = ({ reviews }) => (
         ))}
       </ul>
     ) : (
-      <Empty message="отзывов" />
+      <EmptyList entity="отзывов" />
     )}
   </div>
 );

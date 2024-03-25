@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { Restaurant } from '../restaurant/restaurant.component';
-import { RestaurantsProps } from '../../types/restaurants.models';
-import { Empty } from '../empty/empty.component';
+import { EmptyList } from '../empty-list/empty-list.component';
+import { RestaurantInterface } from '../../types/restaurant.models';
+
+export interface RestaurantsProps {
+  restaurants: RestaurantInterface[];
+}
 
 export const Restaurants: FC<RestaurantsProps> = ({ restaurants }) => (
   <div>
@@ -12,7 +16,7 @@ export const Restaurants: FC<RestaurantsProps> = ({ restaurants }) => (
         ))}
       </ul>
     ) : (
-      <Empty message="ресторанов" />
+      <EmptyList entity="ресторанов" />
     )}
   </div>
 );

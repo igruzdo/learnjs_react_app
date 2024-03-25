@@ -1,7 +1,11 @@
 import { FC } from 'react';
 import { Meal } from '../meal/meal.component';
-import { MenuProps } from '../../types/meals.models';
-import { Empty } from '../empty/empty.component';
+import { EmptyList } from '../empty-list/empty-list.component';
+import { MealInterface } from '../../types/meal.models';
+
+export interface MenuProps {
+  menu: MealInterface[];
+}
 
 export const Menu: FC<MenuProps> = ({ menu }) => (
   <div>
@@ -13,7 +17,7 @@ export const Menu: FC<MenuProps> = ({ menu }) => (
         ))}
       </ul>
     ) : (
-      <Empty message="меню" />
+      <EmptyList entity="меню" />
     )}
   </div>
 );

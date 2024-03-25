@@ -4,7 +4,3 @@ export interface ReviewInterface {
   text: string,
   rating: number,
 }
-
-export interface ReviewProps {
-  review: ReviewInterface;
-}
