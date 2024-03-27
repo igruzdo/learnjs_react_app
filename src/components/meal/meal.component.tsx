@@ -1,8 +1,16 @@
 import { FC } from 'react';
 import { MealInterface } from '../../types/meal.models';
+import { Counter } from '../ui/counter/counter.component';
 
-export interface MealProps {
+interface MealProps {
   meal: MealInterface;
 }
 
-export const Meal: FC<MealProps> = ({ meal }) => <li>{meal.name}</li>;
+export const Meal: FC<MealProps> = ({ meal }) => {
+  return (
+    <li>
+      <div>{meal.name}</div>
+      <Counter />
+    </li>
+  );
+};

@@ -3,7 +3,7 @@ import { Review } from '../review/review.component';
 import { EmptyList } from '../empty-list/empty-list.component';
 import { ReviewInterface } from '../../types/review.models';
 
-export interface ReviewsProps {
+interface ReviewsProps {
   reviews: ReviewInterface[];
 }
 
@@ -12,8 +12,8 @@ export const Reviews: FC<ReviewsProps> = ({ reviews }) => (
     <h3>Отзывы</h3>
     {reviews?.length ? (
       <ul>
-        {reviews.map((item) => (
-          <Review review={item} />
+        {reviews.map((item, index) => (
+          <Review key={index} review={item} />
         ))}
       </ul>
     ) : (

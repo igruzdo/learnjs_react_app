@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { ReviewInterface } from '../../types/review.models';
 
-export interface ReviewProps {
+interface ReviewProps {
   review: ReviewInterface;
 }
 

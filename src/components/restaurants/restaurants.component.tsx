@@ -3,7 +3,7 @@ import { Restaurant } from '../restaurant/restaurant.component';
 import { EmptyList } from '../empty-list/empty-list.component';
 import { RestaurantInterface } from '../../types/restaurant.models';
 
-export interface RestaurantsProps {
+interface RestaurantsProps {
   restaurants: RestaurantInterface[];
 }
 

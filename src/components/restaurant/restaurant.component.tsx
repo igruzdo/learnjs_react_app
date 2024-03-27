@@ -3,7 +3,7 @@ import { Menu } from '../menu/menu.component';
 import { Reviews } from '../reviews/reviews.component';
 import { RestaurantInterface } from '../../types/restaurant.models';
 
-export interface RestaurantProps {
+interface RestaurantProps {
   restaurant: RestaurantInterface;
 }
 
