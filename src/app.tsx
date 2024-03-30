@@ -4,22 +4,22 @@ import { Layout } from './components/layout/layout.component';
 import { restaurants } from './constants/mock';
 import { Restaurant } from './components/restaurant/restaurant.component';
 
-const getFromLocalStorageRestaurantIdx = () =>
-  Number(localStorage.getItem('currentRestaurantIdx'));
+const getFromLocalStorageRestaurantIndex = () =>
+  Number(localStorage.getItem('currentRestaurantIndex'));
 
-const setInLocalStorageRestaurantIdx = (idx: number) => () => {
-  localStorage.setItem('currentRestaurantIdx', `${idx}`);
-  return idx;
+const setInLocalStorageRestaurantIndex = (index: number) => () => {
+  localStorage.setItem('currentRestaurantIndex', `${index}`);
+  return index;
 };
 export const App = () => {
   const [currentRestaurantIndex, setRestaurantIndex] = useState(
-    getFromLocalStorageRestaurantIdx,
+    getFromLocalStorageRestaurantIndex,
   );
 
   const currentRestaurant = restaurants[currentRestaurantIndex];
 
-  const onTabClickHandler = (idx: number) =>
-    setRestaurantIndex(setInLocalStorageRestaurantIdx(idx));
+  const onTabClickHandler = (index: number) =>
+    setRestaurantIndex(setInLocalStorageRestaurantIndex(index));
 
   return (
     <Layout>
