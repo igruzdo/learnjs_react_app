@@ -3,7 +3,7 @@ import { Meal } from '../meal/meal.component';
 import { EmptyList } from '../empty-list/empty-list.component';
 import { MealInterface } from '../../types/meal.models';
 
-export interface MenuProps {
+interface MenuProps {
   menu: MealInterface[];
 }
 
@@ -12,8 +12,8 @@ export const Menu: FC<MenuProps> = ({ menu }) => (
     <h3>Меню</h3>
     {menu?.length ? (
       <ul>
-        {menu.map((item) => (
-          <Meal meal={item} />
+        {menu.map((item, index) => (
+          <Meal key={index} meal={item} />
         ))}
       </ul>
     ) : (
