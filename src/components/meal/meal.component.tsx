@@ -8,16 +8,10 @@ interface MealProps {
 }
 
 export const Meal: FC<MealProps> = ({ meal }) => {
-  const counterOptions = {
-    ...useCount(),
-    min: 0,
-    max: 5,
-  };
-
   return (
     <li>
       <div>{meal.name}</div>
-      <Counter {...counterOptions} />
+      <Counter {...useCount()} min={0} max={5} />
     </li>
   );
 };

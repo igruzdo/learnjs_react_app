@@ -1,9 +1,7 @@
 import { FC, useState } from 'react';
 
 interface CounterProps {
-  amount: {
-    value: number;
-  };
+  amount: number;
   increment: () => void;
   decrement: () => void;
   min: number;
@@ -18,7 +16,7 @@ export const Counter: FC<CounterProps> = ({
   max,
 }) => {
   const increase = () => {
-    if (amount.value === max) {
+    if (amount === max) {
       return;
     }
 
@@ -26,7 +24,7 @@ export const Counter: FC<CounterProps> = ({
   };
 
   const decrease = () => {
-    if (amount.value === min) {
+    if (amount === min) {
       return;
     }
 
@@ -36,7 +34,7 @@ export const Counter: FC<CounterProps> = ({
   return (
     <div>
       <button onClick={decrease}>-</button>
-      <span> {amount.value} </span>
+      <span> {amount} </span>
       <button onClick={increase}>+</button>
     </div>
   );
