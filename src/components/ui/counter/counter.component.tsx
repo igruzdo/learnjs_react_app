@@ -1,27 +1,40 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
-export const Counter = () => {
-  const [count, setCount] = useState(0);
+interface CounterProps {
+  amount: number;
+  increment: () => void;
+  decrement: () => void;
+  min: number;
+  max: number;
+}
+
+export const Counter: FC<CounterProps> = ({
+  amount,
+  increment,
+  decrement,
+  min,
+  max,
+}) => {
   const increase = () => {
-    if (count === 5) {
+    if (amount === max) {
       return;
     }
 
-    setCount((currentCount) => ++currentCount);
+    increment();
   };
 
   const decrease = () => {
-    if (count === 0) {
+    if (amount === min) {
       return;
     }
 
-    setCount((currentCount) => --currentCount);
+    decrement();
   };
 
   return (
     <div>
       <button onClick={decrease}>-</button>
-      <span> {count} </span>
+      <span> {amount} </span>
       <button onClick={increase}>+</button>
     </div>
   );
