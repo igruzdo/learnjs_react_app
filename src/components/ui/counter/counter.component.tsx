@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Button } from '../button/button.component';
 
 interface CounterProps {
   amount: number;
@@ -33,9 +34,9 @@ export const Counter: FC<CounterProps> = ({
 
   return (
     <div>
-      <button onClick={decrease}>-</button>
+      <Button onClick={decrease}>-</Button>
       <span> {amount} </span>
-      <button onClick={increase}>+</button>
+      <Button onClick={increase}>+</Button>
     </div>
   );
 };
