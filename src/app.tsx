@@ -7,7 +7,7 @@ import { useTheme } from './hooks/theme-hook/theme-hook';
 import { UserContext } from './context/user.context';
 import { useUserLoginLogout } from './hooks/user-hook/user-hook';
 import { useSelector } from 'react-redux';
-import { EntytySlice, RestaurantMap, StoreSlices } from './types/store';
+import { StoreSlices } from './types/store';
 
 const getFromLocalStorageRestaurantIndex = () =>
   localStorage.getItem('currentRestaurantId');
@@ -18,11 +18,9 @@ const setInLocalStorageRestaurantIndex = (id: string) => () => {
 };
 
 export const App = () => {
-  const restaurantsEntities = useSelector<
-    StoreSlices,
-    EntytySlice<RestaurantMap>
-  >((state) => state.restaurant);
-  const restaurantsIds = restaurantsEntities.ids;
+  const restaurantsIds = useSelector<StoreSlices, string[]>(
+    (state) => state.restaurant.ids,
+  );
   const [currentRestaurantId, setRestaurantIndex] = useState(
     getFromLocalStorageRestaurantIndex,
   );
@@ -39,8 +37,7 @@ export const App = () => {
     [user, login, logout],
   );
 
-  let currentRestaurant =
-    restaurantsEntities.entities[currentRestaurantId ?? restaurantsIds[0]];
+  let restaurantId = currentRestaurantId ?? restaurantsIds[0];
 
   const onTabClickHandler = (id: string) =>
     setRestaurantIndex(setInLocalStorageRestaurantIndex(id));
@@ -50,12 +47,10 @@ export const App = () => {
       <ThemeContext.Provider value={themeContextMemo}>
         <Layout>
           <RestaurantsTabs
-            currentId={currentRestaurant.id}
+            currentId={restaurantId}
             onTabClick={onTabClickHandler}
           />
-          {currentRestaurant && (
-            <Restaurant restaurantId={currentRestaurant.id} />
-          )}
+          {restaurantId && <Restaurant restaurantId={restaurantId} />}
         </Layout>
       </ThemeContext.Provider>
     </UserContext.Provider>
