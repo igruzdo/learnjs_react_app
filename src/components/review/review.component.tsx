@@ -1,8 +1,14 @@
 import { FC } from 'react';
-import { ReviewInterface } from '../../types/review.models';
+import { useSelector } from 'react-redux';
+import { ReviewMap, StoreSlices } from '../../types/store';
 
 interface ReviewProps {
-  review: ReviewInterface;
+  reviewId: string;
 }
 
-export const Review: FC<ReviewProps> = ({ review }) => <li>{review.text}</li>;
+export const Review: FC<ReviewProps> = ({ reviewId }) => {
+  const review = useSelector<StoreSlices, ReviewMap[string]>(
+    (state) => state.review.entities[reviewId],
+  );
+  return <li>{review.text}</li>;
+};

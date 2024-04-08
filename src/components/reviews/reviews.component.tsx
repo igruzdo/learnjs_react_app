@@ -4,22 +4,31 @@ import { EmptyList } from '../empty-list/empty-list.component';
 import { ReviewInterface } from '../../types/review.models';
 import styles from './reviews.module.scss';
 import classNames from 'classnames';
+import { useSelector } from 'react-redux';
+import { RestaurantMap, StoreSlices } from '../../types/store';
 
 interface ReviewsProps {
-  reviews: ReviewInterface[];
+  restaurantId: string;
 }
 
-export const Reviews: FC<ReviewsProps> = ({ reviews }) => (
-  <div className={classNames(styles.root)}>
-    <h3>Отзывы</h3>
-    {reviews?.length ? (
-      <ul className={classNames(styles.reviewList)}>
-        {reviews.map((item, index) => (
-          <Review key={index} review={item} />
-        ))}
-      </ul>
-    ) : (
-      <EmptyList entity="отзывов" />
-    )}
-  </div>
-);
+export const Reviews: FC<ReviewsProps> = ({ restaurantId }) => {
+  const restaurant = useSelector<StoreSlices, RestaurantMap[string]>(
+    (state) => state.restaurant.entities[restaurantId],
+  );
+  const reviewsIds = restaurant.reviews;
+
+  return (
+    <div className={classNames(styles.root)}>
+      <h3>Отзывы</h3>
+      {reviewsIds?.length ? (
+        <ul className={classNames(styles.reviewList)}>
+          {reviewsIds.map((id) => (
+            <Review key={id} reviewId={id} />
+          ))}
+        </ul>
+      ) : (
+        <EmptyList entity="отзывов" />
+      )}
+    </div>
+  );
+};
