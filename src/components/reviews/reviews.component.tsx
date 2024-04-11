@@ -1,21 +1,29 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { Review } from '../review/review.component';
 import { EmptyList } from '../empty-list/empty-list.component';
-import { ReviewInterface } from '../../types/review.models';
 import styles from './reviews.module.scss';
 import classNames from 'classnames';
 import { useSelector } from 'react-redux';
-import { RestaurantMap, StoreSlices } from '../../types/store';
+import { AppStore } from '../../types/store';
+import { useDispatch } from 'react-redux';
+import { getReviewsByRestaurantId } from '../../redux/enities/review/thunks/get-review-by-id.thunk';
+import { Dispatch } from '@reduxjs/toolkit';
+import { selectReviewIdsByRestaurantId } from '../../redux/enities/restaurant/selector';
 
 interface ReviewsProps {
   restaurantId: string;
 }
 
 export const Reviews: FC<ReviewsProps> = ({ restaurantId }) => {
-  const restaurant = useSelector<StoreSlices, RestaurantMap[string]>(
-    (state) => state.restaurant.entities[restaurantId],
+  const reviewsIds = useSelector<AppStore, string[]>((state: AppStore) =>
+    selectReviewIdsByRestaurantId(state, restaurantId),
   );
-  const reviewsIds = restaurant.reviews;
+
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  useEffect(() => {
+    dispatch(getReviewsByRestaurantId(restaurantId));
+  }, [restaurantId]);
 
   return (
     <div className={classNames(styles.root)}>

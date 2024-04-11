@@ -1,9 +1,9 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { Button } from '../button/button.component';
 
 interface CounterProps {
   amount: number;
-  increment: () => void;
+  increment: Function;
   decrement: () => void;
   min: number;
   max: number;

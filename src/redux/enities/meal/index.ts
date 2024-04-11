@@ -1,37 +1,16 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { MealMap } from "../../../types/store";
-import { restaurants } from "../../../constants/mock";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { getMealsByRestaurantId } from "./thunks/get-meal-by-id.thunk";
 
-const { entities, ids } = restaurants.reduce((acc: { entities: MealMap, ids: string[] }, curr) => {
-  const { menu } = curr;
-
-  const result = menu.reduce((accMeal: { entities: MealMap, ids: string[] }, currMeal) => {
-    accMeal.entities[currMeal.id] = currMeal;
-    accMeal.ids.push(currMeal.id)
-    return accMeal;
-  }, {
-    entities: {},
-    ids: []
-  })
-
-  acc.entities = {
-    ...acc.entities,
-    ...result.entities
-  }
-
-  acc.ids = [...acc.ids, ...result.ids]
-
-  return acc;
-}, {
-  entities: {},
-  ids: []
-})
+const entityAdapter = createEntityAdapter();
 
 export const mealSlice = createSlice({
   name: 'meal',
-  initialState: {
-    entities,
-    ids,
-  },
-  reducers: {}
+  initialState: entityAdapter.getInitialState(),
+  reducers: {},
+  extraReducers: (builder) => builder.addCase(
+    getMealsByRestaurantId.fulfilled,
+    (state, { payload: meals }) => {
+      entityAdapter.upsertMany(state, meals);
+    }
+  )
 })
