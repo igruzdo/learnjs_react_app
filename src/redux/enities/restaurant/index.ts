@@ -1,27 +1,19 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { restaurants } from "../../../constants/mock";
-import { RestaurantMap } from "../../../types/store";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
+import { getRestaurants } from "./thunks/get-restaurant.thunk";
 
-const { entities, ids } = restaurants.reduce((acc: { entities: RestaurantMap, ids: string[] }, curr) => {
-  const { id, name } = curr;
-  acc.entities[curr.id] = {
-    id,
-    name,
-    menu: curr.menu?.map(({ id }) => id),
-    reviews: curr.reviews?.map(({ id }) => id),
-  }
-  acc.ids.push(id);
-  return acc;
-}, {
-  entities: {},
-  ids: []
-})
+const entityAdapter = createEntityAdapter()
 
 export const restaurantSlice = createSlice({
   name: 'restaurant',
-  initialState: {
-    entities,
-    ids,
-  },
-  reducers: {}
+  initialState: entityAdapter.getInitialState(),
+  reducers: {},
+  extraReducers: (builder) => builder.addCase(
+    getRestaurants.fulfilled,
+    (state, { payload: restaurants }) => {
+      entityAdapter.setAll(state, restaurants);
+
+      // state.entities = restaurants.reduce((acc: EntytySlice<RestaurantMap>, restaurant: RestaurantStoreItem) => acc.entities[restaurant.id] = restaurant, {})
+      // state.ids = restaurants.map((item: RestaurantStoreItem) => item.id)
+    }
+  )
 })

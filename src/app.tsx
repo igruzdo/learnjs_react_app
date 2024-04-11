@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { RestaurantsTabs } from './components/restaurants-tabs/restaurants-tabs.component';
 import { Layout } from './components/layout/layout.component';
 import { Restaurant } from './components/restaurant/restaurant.component';
@@ -7,23 +7,34 @@ import { useTheme } from './hooks/theme-hook/theme-hook';
 import { UserContext } from './context/user.context';
 import { useUserLoginLogout } from './hooks/user-hook/user-hook';
 import { useSelector } from 'react-redux';
-import { StoreSlices } from './types/store';
+import { AppStore } from './types/store';
+import { useDispatch } from 'react-redux';
+import { getRestaurants } from './redux/enities/restaurant/thunks/get-restaurant.thunk';
+import { Dispatch } from '@reduxjs/toolkit';
+import { getUsers } from './redux/enities/user/thunks/get-users.thunk';
 
-const getFromLocalStorageRestaurantIndex = () =>
+const getFromLocalStorageRestaurantIndex = (): string | null =>
   localStorage.getItem('currentRestaurantId');
 
-const setInLocalStorageRestaurantIndex = (id: string) => () => {
+const setInLocalStorageRestaurantId = (id: string) => () => {
   localStorage.setItem('currentRestaurantId', id);
   return id;
 };
 
 export const App = () => {
-  const restaurantsIds = useSelector<StoreSlices, string[]>(
+  const restaurantsIds = useSelector<AppStore, string[]>(
     (state) => state.restaurant.ids,
   );
-  const [currentRestaurantId, setRestaurantIndex] = useState(
+  const [currentRestaurantId, setRestaurantId] = useState(
     getFromLocalStorageRestaurantIndex,
   );
+
+  const dispatch = useDispatch<Dispatch<any>>();
+
+  useEffect(() => {
+    dispatch(getRestaurants());
+    dispatch(getUsers());
+  }, []);
 
   const { theme, setTheme } = useTheme();
   const { user, login, logout } = useUserLoginLogout();
@@ -40,7 +51,7 @@ export const App = () => {
   let restaurantId = currentRestaurantId ?? restaurantsIds[0];
 
   const onTabClickHandler = (id: string) =>
-    setRestaurantIndex(setInLocalStorageRestaurantIndex(id));
+    setRestaurantId(setInLocalStorageRestaurantId(id));
 
   return (
     <UserContext.Provider value={userContextMemo}>

@@ -3,14 +3,14 @@ import { Restaurant } from '../restaurant/restaurant.component';
 import { EmptyList } from '../empty-list/empty-list.component';
 import { RestaurantInterface } from '../../types/restaurant.models';
 import { useSelector } from 'react-redux';
-import { StoreSlices } from '../../types/store';
+import { AppStore } from '../../types/store';
 
 interface RestaurantsProps {
   restaurants: RestaurantInterface[];
 }
 
 export const Restaurants: FC<RestaurantsProps> = () => {
-  const restaurantIds = useSelector<StoreSlices, string[]>(
+  const restaurantIds = useSelector<AppStore, string[]>(
     (state) => state.restaurant.ids,
   );
 

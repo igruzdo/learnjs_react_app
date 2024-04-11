@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { useSelector } from 'react-redux';
-import { StoreSlices } from '../../types/store';
+import { AppStore } from '../../types/store';
 import { RestaurantTab } from '../restaurant-tab/restauramt-tab.components';
+import { selectRestaurantIds } from '../../redux/enities/restaurant/selector';
 
 interface RestaurantsTabsProps {
   currentId: string;
@@ -12,9 +13,7 @@ export const RestaurantsTabs: FC<RestaurantsTabsProps> = ({
   onTabClick,
   currentId,
 }) => {
-  const restaurantIds = useSelector<StoreSlices, string[]>(
-    (state) => state.restaurant.ids,
-  );
+  const restaurantIds = useSelector<AppStore, string[]>(selectRestaurantIds);
 
   return (
     <div>

@@ -4,14 +4,14 @@ import { Reviews } from '../reviews/reviews.component';
 import classNames from 'classnames';
 import styles from './resturant.module.scss';
 import { useSelector } from 'react-redux';
-import { RestaurantMap, StoreSlices } from '../../types/store';
+import { RestaurantMap, AppStore } from '../../types/store';
 
 interface RestaurantProps {
   restaurantId: string;
 }
 
 export const Restaurant: FC<RestaurantProps> = ({ restaurantId }) => {
-  const restaurant = useSelector<StoreSlices, RestaurantMap[string]>(
+  const restaurant = useSelector<AppStore, RestaurantMap[string]>(
     (state) => state.restaurant.entities[restaurantId],
   );
 

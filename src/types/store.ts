@@ -2,12 +2,14 @@ import { MealInterface } from "./meal.models"
 import { ReviewInterface } from "./review.models"
 
 export interface RestaurantMap {
-  [key: string]: {
-    id: string,
-    name: string,
-    menu: string[],
-    reviews: string[],
-  }
+  [key: string]: RestaurantStoreItem;
+}
+
+export interface RestaurantStoreItem {
+  id: string,
+  name: string,
+  menu: string[],
+  reviews: string[],
 }
 
 export interface MealMap {
@@ -19,10 +21,12 @@ export interface ReviewMap {
 }
 
 export interface UserMap {
-  [key: string]: {
-    id: string,
-    name: string,
-  }
+  [key: string]: UserStoreItem
+}
+
+export interface UserStoreItem {
+  id: string,
+  name: string,
 }
 
 export interface EntytySlice<EntityType> {
@@ -30,9 +34,14 @@ export interface EntytySlice<EntityType> {
   ids: string[],
 }
 
-export interface StoreSlices {
+export interface CartStoreSlice {
+  [key: string]: number
+}
+
+export interface AppStore {
   restaurant: EntytySlice<RestaurantMap>,
   meal: EntytySlice<MealMap>,
   review: EntytySlice<ReviewMap>,
   user: EntytySlice<UserMap>,
+  cart: CartStoreSlice
 }
